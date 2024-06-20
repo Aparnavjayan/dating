@@ -1,17 +1,17 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Loginuser from "./pages/login/Loginuser";
+import Boarding from "./pages/BoardingScreen/Boarding";
 
-import './App.css'
-import Loginuser from './pages/login/Loginuser'
 
 function App() {
-  
-
   return (
-    <>
-      <div className='grid-container'>
-      <Loginuser/>
-      </div>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Boarding/>} />
+        <Route exact path="/login" element={<Loginuser />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
