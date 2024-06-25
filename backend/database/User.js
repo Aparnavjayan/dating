@@ -18,9 +18,17 @@ const userSchema = new mongoose.Schema({
     image: String,
     email: {
       type: String,
-      required: true,
+      required: false,
       unique: true
-    }
+    },  
+    phoneNumber: {
+      type: String,
+      unique: true,
+      required:false
+      
+    },
+    otp: String,
+    otpExpiry: Date
   });
 
 const User = mongoose.model('User', userSchema);

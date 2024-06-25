@@ -7,6 +7,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from './routes/auth-route.js';
 import verifyRoutes from './routes/verify-route.js';
+import datasends from './routes/datasending-route.js'
 
 import './middleware/passport.js'; 
 
@@ -29,6 +30,7 @@ app.use(passport.session());
 
 app.use(routes);
 app.use('/verify', verifyRoutes);
+app.use('/api/register',datasends)
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })

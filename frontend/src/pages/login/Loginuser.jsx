@@ -1,81 +1,93 @@
-import React , {useState} from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-
+import styles from './loginuser.module.css';
 
 function Loginuser() {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [otp, setOtp] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginMethod, setLoginMethod] = useState('phone'); // 'phone' or 'email'
+  const navigate = useNavigate()
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:3000/auth/google';
+  const createAccount = () => {
+   navigate('/signup')
   };
 
-  const handleSendOtp = async () => {
+  const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/verify/send-verification', { phoneNumber });
-      if (response.data.message === 'Verification sent') {
-        setOtpSent(true);
-        alert('OTP sent successfully!');
+      const loginData = loginMethod === 'phone' ? { phoneNumber, password } : { email, password };
+      const response = await axios.post('http://localhost:3000/login', loginData);
+      if (response.data.message === 'Login successful') {
+        alert('Login successful!');
+        // Redirect to the dashboard or home page
       } else {
-        alert('Failed to send OTP.');
+        alert('Invalid credentials.');
       }
     } catch (error) {
-      console.error('Error sending OTP:', error);
-      alert('Error sending OTP.');
+      console.error('Error logging in:', error);
+      alert('Error logging in.');
     }
   };
-
-  const handleVerifyOtp = async () => {
-    try {
-      const response = await axios.post('http://localhost:3000/verify/check-verification', { phoneNumber, code:otp });
-      if (response.data.message === 'Verification successful') {
-        setIsVerified(true);
-        alert('OTP verified successfully!');
-        // Handle successful verification (e.g., log in the user)
-      } else {
-        alert('Invalid OTP.');
-      }
-    } catch (error) {
-      console.error('Error verifying OTP:', error);
-      alert('Error verifying OTP.');
-    }
-  };
-
 
   return (
-       <div className="App">
-      <header className="App-header">
-        <button onClick={handleGoogleLogin}>Login with Google</button>
-        
-        <div style={{ marginTop: '20px' }}>
-          <h3>Login with Mobile</h3>
-          <input
-            type="text"
-            placeholder="Enter your mobile number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <button onClick={handleSendOtp} disabled={otpSent}>Send OTP</button>
-        </div>
-
-        {otpSent && (
-          <div style={{ marginTop: '20px' }}>
+    <div>
+      
+      <div className={styles.container}>
+        <h2>Login</h2>
+        <form>
+          {loginMethod === 'phone' ? (
+            <input
+              type="tel"
+              placeholder="Phone Number/Gmail id"
+              required
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          ) : (
             <input
               type="text"
-              placeholder="Enter OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              placeholder="Phone Number/Gmail id"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <button onClick={handleVerifyOtp}>Verify OTP</button>
+          )}
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="button"
+            className={styles.verify}
+            onClick={handleLogin}
+          >
+            Sign In
+          </button>
+          <div className={styles.orLine}>
+            
           </div>
-        )}
-
-        {isVerified && <p>Phone number verified successfully!</p>}
-      </header>
+          <a
+            href="/forgot-password"
+            className={styles.forgotPassword}
+          >
+            Forgot Password
+          </a>
+          <button
+            type="button"
+            className={styles.createAccount}
+            onClick={createAccount}
+          >
+            Create new account
+          </button>
+          
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Loginuser
+export default Loginuser;

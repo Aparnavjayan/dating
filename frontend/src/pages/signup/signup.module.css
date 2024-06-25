@@ -1,0 +1,118 @@
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+ 
+
+}
+/* .pagebackground {
+  margin: 0;
+  padding: 0;
+  background-image: url('../../assets/signupPageBackground.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  filter: brightness(0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  color: rgb(246, 226, 231);
+  margin-bottom: 20px;
+  margin-top: -50px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+
+.container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: black;
+}
+
+input[type="tel"],
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.verify {
+  background-color: #ff4081;
+  color: white;
+}
+
+.google {
+  background-color: #db4437;
+  color: white;
+}
+
+.orLine {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  /* margin: 20px 0; */
+}
+
+.orLine span {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0 10px;
+  flex-grow: 1;
+  height: 1px;
+  /* background: #ccc; */
+  position: relative;
+}
+
+.orLine span::before {
+  content: 'or';
+  color: black;
+  position: absolute;
+  background: white;
+  /* padding: 0 10px; */
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -1,6 +1,7 @@
 // verify-route.js
 import express from 'express';
 import { sendVerification, checkVerification } from '../middleware/twilioService.js';
+import User from '../../database/User.js';
 
 const router = express.Router();
 
@@ -9,6 +10,7 @@ router.post('/send-verification', async (req, res) => {
 
   try {
     const verification = await sendVerification(phoneNumber);
+
     res.status(200).json({ message: 'Verification sent', verification });
   } catch (error) {
     res.status(500).json({ error: 'Failed to send verification' });
@@ -27,6 +29,18 @@ router.post('/check-verification', async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error: 'Failed to check verification' });
+  }
+});
+
+router.post('/update-phone', async (req, res) => {
+  const { phoneNumber } = req.body;
+  const userId = "6672ffb307fe4f95cbf7d327"; // Assuming user is authenticated and available in req.user
+
+  try {
+    await User.findByIdAndUpdate(userId, { phoneNumber });
+    res.status(200).json({ message: 'Phone number updated' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update phone number' });
   }
 });
 

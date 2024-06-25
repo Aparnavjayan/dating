@@ -15,6 +15,7 @@ export const sendVerification = async (phoneNumber) => {
     const verification = await client.verify.services(serviceId)
       .verifications
       .create({ to: `+91${phoneNumber}`, channel: 'sms' });
+      
 
     return verification;
   } catch (error) {
