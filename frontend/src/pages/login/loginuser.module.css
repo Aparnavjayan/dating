@@ -22,7 +22,7 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the container */
+    align-items: center; 
   }
   
   h2 {

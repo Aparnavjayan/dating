@@ -7,7 +7,7 @@ function Loginuser() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginMethod, setLoginMethod] = useState('phone'); // 'phone' or 'email'
+  const [loginMethod, setLoginMethod] = useState('phone'); 
   const navigate = useNavigate()
 
   const createAccount = () => {
@@ -20,7 +20,7 @@ function Loginuser() {
       const response = await axios.post('http://localhost:3000/login', loginData);
       if (response.data.message === 'Login successful') {
         alert('Login successful!');
-        // Redirect to the dashboard or home page
+       
       } else {
         alert('Invalid credentials.');
       }

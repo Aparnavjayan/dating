@@ -4,7 +4,8 @@ import styles from './signup.module.css';
 
 
 function Signup() {
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -15,7 +16,7 @@ function Signup() {
 
   const handleSendOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/verify/send-verification', { phoneNumber });
+      const response = await axios.post('http://localhost:3000/verify/send-verification', { phone });
       if (response.data.message === 'Verification sent') {
         setOtpSent(true);
         alert('OTP sent successfully!');
@@ -30,11 +31,11 @@ function Signup() {
 
   const handleVerifyOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/verify/check-verification', { phoneNumber, code: otp });
+      const response = await axios.post('http://localhost:3000/verify/check-verification', { phone, code: otp });
       if (response.data.message === 'Verification successful') {
         setIsVerified(true);
         alert('OTP verified successfully!');
-        await axios.post('http://localhost:3000/update-phone', { phoneNumber });
+        await axios.post('http://localhost:3000/update-phone', { phone, name });
       } else {
         alert('Invalid OTP.');
       }
@@ -52,12 +53,19 @@ function Signup() {
       <div className={styles.container}>
         <h2>Create account</h2>
         <form>
+        <input
+            type="text"
+            placeholder="Name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <input
             type="tel"
             placeholder="Phone Number"
             required
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
           <button
             type="button"

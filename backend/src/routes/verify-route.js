@@ -1,4 +1,3 @@
-// verify-route.js
 import express from 'express';
 import { sendVerification, checkVerification } from '../middleware/twilioService.js';
 import User from '../../database/User.js';
@@ -34,7 +33,7 @@ router.post('/check-verification', async (req, res) => {
 
 router.post('/update-phone', async (req, res) => {
   const { phoneNumber } = req.body;
-  const userId = "6672ffb307fe4f95cbf7d327"; // Assuming user is authenticated and available in req.user
+  const userId = req.user._id ;
 
   try {
     await User.findByIdAndUpdate(userId, { phoneNumber });

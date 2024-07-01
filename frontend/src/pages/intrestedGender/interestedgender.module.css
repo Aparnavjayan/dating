@@ -1,0 +1,45 @@
+.genderSelection {
+  display: flex;
+  flex-direction: column;
+   /* Align items to the start (left) */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 500px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.genderFields {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  margin: 20px 0;
+}
+
+.genderFields label {
+  /* display: flex; */
+  align-items: center; 
+  margin: 10px 0;
+}
+
+.genderFields input {
+  margin-right: 10px;
+  
+}
+
+.nxtButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.nxtButton:hover {
+  background: linear-gradient(to right, #5a0cb3, #1a4fc2);
+}

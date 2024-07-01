@@ -15,9 +15,9 @@ passport.use(new GoogleStrategy({
   async (accessToken, refreshToken, profile, cb) => {
     const newUser = {
       googleId: profile.id,
-      firstName: profile.name.givenName,
-      lastName: profile.name.familyName,
-      email: profile.emails[0].value
+      name: profile.displayName,
+      email: profile.emails[0].value,
+      
     };
     console.log(profile);
 
