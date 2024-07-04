@@ -16,6 +16,8 @@ import relationdata from './routes/relationtype.js';
 import userDetailsRoute from './routes/userdetails-route.js';
 import filesRouter from './routes/media-route.js';
 import fetechedData from './routes/datafetching-route.js';
+import userDataRoutes from './routes/user-route.js';
+import loginRoute from './routes/login-route.js';
 
 import './middleware/passport.js'; 
 
@@ -62,6 +64,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
+
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
 
@@ -71,8 +74,10 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')));
   app.use(empdata);
   app.use(relationdata);
   app.use(userDetailsRoute);
-  app.use('/api/files', filesRouter);
-  app.use(fetechedData)
+  app.use('/api/files', filesRouter); 
+  app.use(fetechedData);
+  app.use(userDataRoutes);
+  app.use(loginRoute);
  
   app.get('*', (req, res) => {
   

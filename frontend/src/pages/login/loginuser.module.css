@@ -24,6 +24,11 @@
     flex-direction: column;
     align-items: center; 
   }
+  .methodSelector {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1em;
+  }
   
   h2 {
     margin-bottom: 20px;

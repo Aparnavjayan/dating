@@ -57,8 +57,8 @@ const UserDetailsSchema = new mongoose.Schema({
     type: PreferencesSchema,
     required: true,
   },
-  photoUrl: {
-    type: String,
+  photoUrls: {
+    type: [String],
     required: false, 
   },
   videoUrl: {

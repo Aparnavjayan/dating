@@ -27,7 +27,7 @@ function InterestedGender() {
       
             if (response.data.success) {
               
-                navigate('/userhome');
+                navigate('/userprofile');
               } 
               
              else {

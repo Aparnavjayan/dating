@@ -25,47 +25,34 @@ function AddPhotos() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const uploadFile = async (url, file, fieldName) => {
-      const formData = new FormData();
-      formData.append(fieldName, file);
+    const formData = new FormData();
 
-      try {
-        const response = await axios.post(url, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          withCredentials: true
-        });
-        return response.status === 200;
-      } catch (error) {
-        console.log(`Error uploading ${fieldName}:`, error);
-        return false;
+    photos.forEach((photo, index) => {
+      if (photo) {
+        formData.append('photo', photo);
       }
-    };
-
-    let allUploadsSuccessful = true;
-
-    for (let i = 0; i < photos.length; i++) {
-      if (photos[i]) {
-        const success = await uploadFile('http://localhost:3000/upload/photo', photos[i], `photo${i + 1}`);
-        if (!success) {
-          allUploadsSuccessful = false;
-        }
-      }
-    }
+    });
 
     if (video) {
-      const success = await uploadFile('http://localhost:3000/upload/video', video, 'video');
-      if (!success) {
-        allUploadsSuccessful = false;
-      }
+      formData.append('video', video);
     }
 
-    if (allUploadsSuccessful) {
-      console.log('Files uploaded successfully');
-      navigate("/employment");
-    } else {
-      console.log('Failed to upload files');
+    try {
+      const response = await axios.post('http://localhost:3000/api/files/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+      });
+
+      if (response.status === 200) {
+        console.log('Files uploaded successfully');
+        navigate("/employment");
+      } else {
+        console.log('Failed to upload files');
+      }
+    } catch (error) {
+      console.log('Error uploading files:', error);
     }
   };
 

@@ -1,0 +1,54 @@
+[
+    {
+      "googleId": "12345abcde",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      
+      "password": "password123",
+      "userType": "Admin",
+      "companyName": "TechCorp",
+      "designation": "Software Engineer",
+      "location": "New York",
+      "expertiseLevel": "Senior",
+      "relationshipType": "Employee"
+    },
+    {
+      "googleId": "67890fghij",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      
+      "password": "password456",
+      "userType": "User",
+      "companyName": "Innovatech",
+      "designation": "Product Manager",
+      "location": "San Francisco",
+      "expertiseLevel": "Mid",
+      "relationshipType": "Consultant"
+    },
+    {
+      "googleId": "11223klmno",
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      
+      "password": "password789",
+      "userType": "Guest",
+      "companyName": "SoftSolutions",
+      "designation": "Data Scientist",
+      "location": "Chicago",
+      "expertiseLevel": "Junior",
+      "relationshipType": "Contractor"
+    },
+    {
+      "googleId": "44556pqrs",
+      "name": "Bob Brown",
+      "email": "bob.brown@example.com",
+      
+      "password": "password101",
+      "userType": "Admin",
+      "companyName": "WebWorks",
+      "designation": "System Administrator",
+      "location": "Boston",
+      "expertiseLevel": "Senior",
+      "relationshipType": "Employee"
+    }
+  ]

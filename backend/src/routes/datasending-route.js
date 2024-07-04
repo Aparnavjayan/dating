@@ -9,8 +9,10 @@ router.get('/api/user', async (req, res) => {
   try {
     const user = await User.findOne({ $or: [{ email }, { phone }] });
     if (user) {
+      console.log('already a user')
       return res.status(200).json({ success: true, user });
     } else {
+      console.log('user not found')
       return res.status(404).json({ success: false, message: 'User not found' });
     }
   } catch (error) {
@@ -21,10 +23,10 @@ router.get('/api/user', async (req, res) => {
 
 router.post('/api/register', async (req, res) => {
   const { name, email, phone, password } = req.body;
-  console.log(`Received phone: ${name}`);
-  console.log(`Received phone: ${email}`);
+  console.log(`Received name: ${name}`);
+  console.log(`Received email: ${email}`);
   console.log(`Received phone: ${phone}`);
-  console.log(`Received phone: ${password}`);
+  console.log(`Received password: ${password}`);
   try {
     
     let user = await User.findOne({ $or: [{ email }, { phone }] });
@@ -34,6 +36,7 @@ router.post('/api/register', async (req, res) => {
         user.password = await bcrypt.hash(password, 10); 
         console.log(`Updated user phone: ${user.phone}`);
         await user.save();
+        console.log('updateduser',user)
         return res.status(200).json({ success: true, message: 'User data updated successfully' });
     }
 

@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './loginuser.module.css';
 
 function Loginuser() {
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginMethod, setLoginMethod] = useState('phone'); 
-  const navigate = useNavigate()
+  const [loginMethod, setLoginMethod] = useState('phone');
+  const navigate = useNavigate();
 
   const createAccount = () => {
-   navigate('/signup')
+    navigate('/signup');
   };
 
   const handleLogin = async () => {
     try {
-      const loginData = loginMethod === 'phone' ? { phoneNumber, password } : { email, password };
+      const loginData = loginMethod === 'phone' ? { phone, password } : { email, password };
+      console.log(loginData);
       const response = await axios.post('http://localhost:3000/login', loginData);
       if (response.data.message === 'Login successful') {
         alert('Login successful!');
-       
+        navigate('/userprofile');
       } else {
         alert('Invalid credentials.');
       }
@@ -32,22 +33,41 @@ function Loginuser() {
 
   return (
     <div>
-      
       <div className={styles.container}>
         <h2>Login</h2>
         <form>
+          <div className={styles.methodSelector}>
+            <label>
+              <input
+                type="radio"
+                value="phone"
+                checked={loginMethod === 'phone'}
+                onChange={() => setLoginMethod('phone')}
+              />
+              Phone
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="email"
+                checked={loginMethod === 'email'}
+                onChange={() => setLoginMethod('email')}
+              />
+              Email
+            </label>
+          </div>
           {loginMethod === 'phone' ? (
             <input
               type="tel"
-              placeholder="Phone Number/Gmail id"
+              placeholder="Phone Number"
               required
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           ) : (
             <input
               type="text"
-              placeholder="Phone Number/Gmail id"
+              placeholder="Email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -60,30 +80,16 @@ function Loginuser() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
-            type="button"
-            className={styles.verify}
-            onClick={handleLogin}
-          >
+          <button type="button" className={styles.verify} onClick={handleLogin}>
             Sign In
           </button>
-          <div className={styles.orLine}>
-            
-          </div>
-          <a
-            href="/forgot-password"
-            className={styles.forgotPassword}
-          >
+          <div className={styles.orLine}></div>
+          <a href="/forgot-password" className={styles.forgotPassword}>
             Forgot Password
           </a>
-          <button
-            type="button"
-            className={styles.createAccount}
-            onClick={createAccount}
-          >
+          <button type="button" className={styles.createAccount} onClick={createAccount}>
             Create new account
           </button>
-          
         </form>
       </div>
     </div>

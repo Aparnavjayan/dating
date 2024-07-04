@@ -1,4 +1,4 @@
-.genderSelection {
+.userTypeSelection {
     /* text-align: center;
     margin: 20px; */
     display: flex;
@@ -14,13 +14,13 @@
   }
   
   .radioButtons label,
-  .genderFields label {
+  .jobseekerFields label {
     display: block;
     margin: 10px 0;
   }
   
   .employerFields input,
-  .genderFields label {
+  .jobseekerFields label {
     margin: 10px 0;
     padding: 8px;
     width: 80%;

@@ -11,9 +11,10 @@ const client = twilio(accountSid, authToken);
 
 export const sendVerification = async (phone) => {
   try {
-    const verification = await client.verify.services(serviceId)
+    const formattedPhone = `+91${phone}`;
+    const verification = await client.verify.v2.services(serviceId)
       .verifications
-      .create({ to: `+91${phone}`, channel: 'sms' });
+      .create({ to: formattedPhone, channel: 'sms' });
       
 
     return verification;
@@ -25,9 +26,10 @@ export const sendVerification = async (phone) => {
 
 export const checkVerification = async (phone, code) => {
   try {
-    const verificationCheck = await client.verify.services(serviceId)
+    const formattedPhone = `+91${phone}`;
+    const verificationCheck = await client.verify.v2.services(serviceId)
       .verificationChecks
-      .create({ to: phone, code});
+      .create({ to: formattedPhone, code});
 
     return verificationCheck;
   } catch (error) {

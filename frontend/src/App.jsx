@@ -6,9 +6,10 @@ import RegisterPage from "./pages/registerPage/RegisterPage";
 import LongOrShortTerm from "./pages/longOrShortTerm/LongOrShortTerm";
 import MoreAbout from "./pages/moreAbout/MoreAbout";
 import AddPhotos from "./pages/addPhotos/AddPhotos";
-import UserHome from "./pages/userHome/UserHome";
 import Employment from "./pages/employment/Employment";
 import InterestedGender from "./pages/intrestedGender/InterestedGender";
+import UserProfile from "./pages/userProfile/UserProfile";
+import UserHome from "./pages/userHome/UserHome";
 
 
 function App() {
@@ -24,9 +25,10 @@ function App() {
         <Route  path="/relationship" element={<LongOrShortTerm/>} />
         <Route  path="/moreabout" element={<MoreAbout/>} />
         <Route  path="/addphoto" element={<AddPhotos/>} />
-        <Route  path="/userhome" element={<UserHome/>} /> 
+        <Route  path="/userprofile" element={<UserProfile/>} /> 
         <Route  path="/employment" element={<Employment/>} /> 
         <Route  path="/gender" element={<InterestedGender/>} />
+        <Route  path="/userhome" element={<UserHome/>} />
       </Routes>
     </Router>
   );

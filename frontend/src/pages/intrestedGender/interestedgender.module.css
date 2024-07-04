@@ -1,7 +1,7 @@
 .genderSelection {
   display: flex;
   flex-direction: column;
-   /* Align items to the start (left) */
+  
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -10,22 +10,26 @@
   background-color: #f9f9f9;
   position: relative;
 }
-
+.radioButtons label,
 .genderFields {
-  display: flex;
-  flex-direction: column; 
-  align-items: flex-start; 
-  margin: 20px 0;
+  display: block;
+  margin: 10px 0;
+  align-items: flex-start;
 }
 
 .genderFields label {
-  /* display: flex; */
-  align-items: center; 
   margin: 10px 0;
+  display: block;
+    padding: 8px;
+    width: 80%;
+    max-width: 400px;
 }
 
 .genderFields input {
-  margin-right: 10px;
+  margin: 10px 0;
+    padding: 8px;
+    width: 80%;
+    max-width: 400px;
   
 }
 

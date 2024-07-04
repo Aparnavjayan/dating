@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import styles from './signup.module.css';
 
 
@@ -10,13 +11,18 @@ function Signup() {
   const [otpSent, setOtpSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleGoogleLogin = () => {
+    sessionStorage.clear();
     window.location.href = 'http://localhost:3000/auth/google';
   };
 
   const handleSendOtp = async () => {
     try {
+      console.log('Sending OTP to:', phone);
       const response = await axios.post('http://localhost:3000/verify/send-verification', { phone });
+      console.log('OTP Send Response:', response.data);
       if (response.data.message === 'Verification sent') {
         setOtpSent(true);
         alert('OTP sent successfully!');
@@ -31,14 +37,19 @@ function Signup() {
 
   const handleVerifyOtp = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/verify/check-verification', { phone, code: otp });
-      if (response.data.message === 'Verification successful') {
-        setIsVerified(true);
-        alert('OTP verified successfully!');
-        await axios.post('http://localhost:3000/update-phone', { phone, name });
-      } else {
-        alert('Invalid OTP.');
-      }
+      console.log('Verifying OTP for:', phone);
+      const response = await axios.post('http://localhost:3000/verify/check-verification', { phone, code: otp ,name});
+      // console.log('OTP Verify Response:', response.data);
+      // if (response.data.message === 'Verification successful') {
+      //   setIsVerified(true);
+        
+      //   alert('OTP verified successfully!');
+      //   navigate('/register');
+      //   console.log('Updating phone in database');
+        
+      // } else {
+      //   alert('Invalid OTP.');
+      // }
     } catch (error) {
       console.error('Error verifying OTP:', error);
       alert('Error verifying OTP.');
@@ -61,7 +72,7 @@ function Signup() {
             onChange={(e) => setName(e.target.value)}
           />
           <input
-            type="tel"
+            type="text"
             placeholder="Phone Number"
             required
             value={phone}

@@ -1,80 +1,77 @@
 import express from 'express';
 import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 import authenticateJWT from '../middleware/jwtauthentication.js';
 import UserDetails from '../../database/UserDetails.js';
 import User from '../../database/User.js';
+
 const router = express.Router();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const uploadsDir = path.resolve(__dirname, '../../uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, uploadsDir);
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage }).fields([
+  { name: 'photo', maxCount: 6 },
+  { name: 'video', maxCount: 1 }
+]);
 
-router.post('/upload/photo', authenticateJWT, upload.single('photo'), async (req, res) => {
+router.post('/upload', authenticateJWT, upload, async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).send('No file uploaded.');
+    if (!req.files) {
+      return res.status(400).send('No files uploaded.');
     }
 
     const { _id } = req.user;
     const user = await User.findById(_id);
+    console.log(user)
 
     if (!user) {
       return res.status(404).send('User not found');
     }
-    const userid = user.userId;
-    const photoPath = req.file.path;
+
+    const userid = user._id;
+    const photos = req.files['photo'] || [];
+    const video = req.files['video'] ? req.files['video'][0].path : null;
+
+    let updateData = {};
+
+    if (photos.length) {
+      updateData.photoUrls = photos.map(photo => photo.path);
+    }
+    if (video) {
+      updateData.videoUrl = video;
+    }
+
     const userDetails = await UserDetails.findOneAndUpdate(
-        { userId: userid },
-        { photoUrl: photoPath },
-        { new: true }
-      );
+      { userId: userid },
+      updateData,
+      { new: true }
+    );
 
     if (!userDetails) {
       return res.status(404).send('User details not found');
     }
 
-    res.status(200).send('Photo uploaded and linked to user details successfully');
+    res.status(200).send('Files uploaded and linked to user details successfully');
   } catch (err) {
-    console.error('Error uploading photo:', err);
-    res.status(500).send('Error uploading photo');
-  }
-});
-
-router.post('/upload/video', authenticateJWT, upload.single('video'), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).send('No file uploaded.');
-    }
-
-    const { _id } = req.user;
-    const user = await User.findById(_id);
-
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-    const userid = user.userId;
-    const videoPath = req.file.path;
-    const userDetails = await UserDetails.findOneAndUpdate(
-        { userId: userid },
-        { videoUrl: videoPath },
-        { new: true }
-      );
-
-    if (!userDetails) {
-      return res.status(404).send('User details not found');
-    }
-
-    res.status(200).send('Video uploaded and linked to user details successfully');
-  } catch (err) {
-    console.error('Error uploading video:', err);
-    res.status(500).send('Error uploading video');
+    console.error('Error uploading files:', err);
+    res.status(500).send('Error uploading files');
   }
 });
 

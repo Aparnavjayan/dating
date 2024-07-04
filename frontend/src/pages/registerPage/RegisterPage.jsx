@@ -26,29 +26,29 @@ const RegisterPage = () => {
       
     }
   }, []);
-  useEffect(() => {
-    if (email || phone) {
-      fetchUserData();
-    }
-  }, [email, phone]);
+  // useEffect(() => {
+  //   if (email || phone) {
+  //     fetchUserData();
+  //   }
+  // }, [email, phone]);
 
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get('/api/user', {
-        params: { email, phone }
-      });
-      if (response.data.success && response.data.user) {
-        setName(response.data.user.name);
-        setPhone(response.data.user.phone);
-        setPassword(''); 
-        setUserExists(true);
-      } else {
-        setUserExists(false);
-      }
-    } catch (error) {
-      console.error('There was an error fetching user data!', error);
-    }
-  };
+  // const fetchUserData = async () => {
+  //   try {
+  //     const response = await axios.get('/api/user', {
+  //       params: { email, phone }
+  //     });
+  //     if (response.data.success && response.data.user) {
+  //       setName(response.data.user.name);
+  //       setPhone(response.data.user.phone);
+  //       setPassword(''); 
+  //       setUserExists(true);
+  //     } else {
+  //       setUserExists(false);
+  //     }
+  //   } catch (error) {
+  //     console.error('There was an error fetching user data!', error);
+  //   }
+  // };
 
   // const nextButton = () =>{
   //   navigate('/relationship')
@@ -121,7 +121,7 @@ const RegisterPage = () => {
         <div className={styles.formGroup}>
           <label htmlFor="phone">Phone Number</label>
           <input
-            type="tel"
+            type="text"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}

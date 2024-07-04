@@ -1,80 +1,87 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './userhome.module.css';
-import UserNavbar from '../../components/navbar/UserNavbar';
+import { getCookie } from '../../utils/cookies';
 
-function UserHome() {
-  const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const UserHome = () => {
+    const [profiles, setProfiles] = useState({
+        qualificationProfiles: [],
+        occupationProfiles: [],
+        locationProfiles: []
+    });
+    const [error, setError] = useState('');
+    
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userResponse = await axios.get('/api/users');
-        setUser(userResponse.data);
+    
 
-        const userDataResponse = await axios.get('/api/userData');
-        setUserData(userDataResponse.data);
-      } catch (error) {
-        console.log('Error fetching user data:', error);
-      }
+
+    useEffect(() => {
+        fetchProfiles();
+    }, []);
+
+    const fetchProfiles = async (userId) => {
+        try {
+            
+            const response = await axios.get('/api/profiles', {
+                withCredentials: true 
+              });
+            console.log('Response:', response.data);
+            setProfiles(response.data);
+        } catch (error) {
+            setError('Error fetching profiles. Please try again later.');
+            console.error('Error fetching profiles:', error);
+        }
     };
 
-    fetchUserData();
-  }, []);
+    const handleLike = async (profileId) => {
+        try {
+            await axios.post('/api/like', { userId, profileId });
+            fetchProfiles(userId);
+        } catch (error) {
+            setError('Error liking profile. Please try again later.');
+            console.error('Error liking profile:', error);
+        }
+    };
 
-  const nextImage = () => {
-    if (user && user.images) {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % user.images.length);
-    }
-  };
+    const handleDislike = async (profileId) => {
+        try {
+            await axios.post('/api/dislike', { userId, profileId });
+            fetchProfiles(userId);
+        } catch (error) {
+            setError('Error disliking profile. Please try again later.');
+            console.error('Error disliking profile:', error);
+        }
+    };
 
-  const prevImage = () => {
-    if (user && user.images) {
-      setCurrentImageIndex((prevIndex) => (prevIndex - 1 + user.images.length) % user.images.length);
-    }
-  };
-
-  if (!user || !userData) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
-
-  return (
-    <div>
-      <UserNavbar />
-      <div className={styles.container}>
-        <div className={styles.imageCard}>
-          <button className={styles.prevButton} onClick={prevImage}>❮</button>
-          <img
-            src={user.images ? user.images[currentImageIndex] : user.image}
-            alt="User"
-            className={styles.image}
-          />
-          <button className={styles.nextButton} onClick={nextImage}>❯</button>
-          <div className={styles.imageCaption}>
-            <h2>{user.name}, {userData.age}, {user.location}</h2>
-            <p>{user.bio}</p>
-          </div>
-          <div className={styles.actionButtons}>
-            <button className={styles.likeButton}>👍 Like</button>
-            <button className={styles.dislikeButton}>👎 Dislike</button>
-          </div>
+    const renderProfiles = (profiles, sectionTitle) => (
+        <div className={styles.profileSection}>
+            <h2>{sectionTitle}</h2>
+            <div className={styles.profileGrid}>
+                {profiles.map(profile => (
+                    <div key={profile._id} className={styles.profileCard}>
+                        <img src={profile.photo} alt={`${profile.name}'s photo`} />
+                        <div className={styles.profileInfo}>
+                            <h3>{profile.name}</h3>
+                            <p>{profile.age}</p>
+                        </div>
+                        <div className={styles.profileActions}>
+                            <button onClick={() => handleLike(profile._id)}>✔️</button>
+                            <button onClick={() => handleDislike(profile._id)}>❌</button>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
-        <div className={styles.userInfo}>
-          <h3>About Me</h3>
-          <p><strong>Gender:</strong> {userData.gender}</p>
-          <p><strong>Education:</strong> {userData.education}</p>
-          <p><strong>Occupation:</strong> {userData.occupation}</p>
-          <p><strong>Hobbies:</strong> {userData.hobby}</p>
-          <p><strong>Interests:</strong> {userData.preferences.interests}</p>
-          <p><strong>Smoking Habits:</strong> {userData.preferences.smokingHabits}</p>
-          <p><strong>Drinking Habits:</strong> {userData.preferences.drinkingHabits}</p>
-          <p><strong>Interest in Fitness:</strong> {userData.preferences.fitnessInterest}</p>
+    );
+
+    return (
+        <div className={styles.userHome}>
+            {error && <div className={styles.error}>{error}</div>}
+            {renderProfiles(profiles.qualificationProfiles, 'Profiles with Matching Qualification')}
+            {renderProfiles(profiles.occupationProfiles, 'Profiles with Matching Occupation')}
+            {renderProfiles(profiles.locationProfiles, 'Profiles Nearby')}
         </div>
-      </div>
-    </div>
-  );
-}
+    );
+};
 
 export default UserHome;
