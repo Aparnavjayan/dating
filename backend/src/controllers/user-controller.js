@@ -22,13 +22,13 @@ export const getProfiles = async (req, res) => {
 
         const query = {
             userId: { $ne: userId, $nin: hiddenProfiles },
-            gender: { $ne: loggedInUserDetails.selectedGender }  // Filter by selected gender
+            gender: { $ne: loggedInUserDetails.selectedGender }  
         };
 
         const fetchRandomProfiles = async (matchCriteria) => {
             return await UserDetails.aggregate([
                 { $match: { ...matchCriteria, ...query } },
-                { $sample: { size: 10 } }  // Fetch random 10 profiles
+                { $sample: { size: 10 } }  
             ]);
         };
 
@@ -36,7 +36,7 @@ export const getProfiles = async (req, res) => {
         const occupationProfiles = await fetchRandomProfiles({ occupation: loggedInUserDetails.occupation });
         const locationProfiles = await fetchRandomProfiles({ location: loggedInUserDetails.location });
 
-        // Function to populate user details
+       
         const populateUserDetails = async (profiles) => {
             return await UserDetails.populate(profiles, { path: 'userId', select: 'name' });
         };
