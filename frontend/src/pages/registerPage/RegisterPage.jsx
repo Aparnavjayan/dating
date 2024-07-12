@@ -3,69 +3,54 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import styles from './register.module.css';
 
-
 const RegisterPage = () => {
-  
   const navigate = useNavigate();
 
-  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); 
-  const [userExists, setUserExists] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const storedUser = JSON.parse(sessionStorage.getItem('user'));
     if (storedUser) {
-      setIsGoogleUser(true);
       setName(storedUser.name);
       setEmail(storedUser.email);
-      
     }
   }, []);
-  // useEffect(() => {
-  //   if (email || phone) {
-  //     fetchUserData();
-  //   }
-  // }, [email, phone]);
 
-  // const fetchUserData = async () => {
-  //   try {
-  //     const response = await axios.get('/api/user', {
-  //       params: { email, phone }
-  //     });
-  //     if (response.data.success && response.data.user) {
-  //       setName(response.data.user.name);
-  //       setPhone(response.data.user.phone);
-  //       setPassword(''); 
-  //       setUserExists(true);
-  //     } else {
-  //       setUserExists(false);
-  //     }
-  //   } catch (error) {
-  //     console.error('There was an error fetching user data!', error);
-  //   }
-  // };
-
-  // const nextButton = () =>{
-  //   navigate('/relationship')
-  // }
-  // const validateForm = () => {
-  //   if (!name || !email || !phone || !password) {
-  //     alert('All fields are required');
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  const validateForm = () => {
+    const errors = {};
+    if (!name) {
+      errors.name = 'Name is required';
+    }
+    if (!email) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Email address is invalid';
+    }
+    if (!phone) {
+      errors.phone = 'Phone number is required';
+    } else if (!/^\d{10}$/.test(phone)) {
+      errors.phone = 'Phone number must be 10 digits';
+    }
+    if (!password) {
+      errors.password = 'Password is required';
+    } else if (password.length < 6) {
+      errors.password = 'Password must be at least 6 characters';
+    }
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!validateForm()) {
-    //   return;
-    // }
+    if (!validateForm()) {
+      return;
+    }
     setIsLoading(true);
     const formData = {
       name,
@@ -74,7 +59,6 @@ const RegisterPage = () => {
       password,
     };
 
-    console.log('Submitting form data:', formData);
     try {
       const response = await axios.post('/api/register', formData);
       setIsLoading(false);
@@ -105,8 +89,8 @@ const RegisterPage = () => {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            
           />
+          {errors.name && <p className={styles.error}>{errors.name}</p>}
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="email">Email</label>
@@ -115,8 +99,8 @@ const RegisterPage = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            
           />
+          {errors.email && <p className={styles.error}>{errors.email}</p>}
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="phone">Phone Number</label>
@@ -126,6 +110,7 @@ const RegisterPage = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
+          {errors.phone && <p className={styles.error}>{errors.phone}</p>}
         </div>
         <div className={styles.formGroup}>
           <label htmlFor="password">Password</label>
@@ -146,8 +131,11 @@ const RegisterPage = () => {
               <label htmlFor="show-password">{showPassword ? 'Hide' : 'Show'}</label>
             </div>
           </div>
+          {errors.password && <p className={styles.error}>{errors.password}</p>}
         </div>
-        <button type="submit" className={styles.nextBtn} disabled={isLoading}>{isLoading ? 'Submitting...' : 'Next'}</button>
+        <button type="submit" className={styles.nextBtn} disabled={isLoading}>
+          {isLoading ? 'Submitting...' : 'Next'}
+        </button>
       </form>
     </div>
   );

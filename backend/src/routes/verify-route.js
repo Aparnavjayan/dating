@@ -1,87 +1,60 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
-import { sendVerification, checkVerification } from '../middleware/twilioService.js';
+import twilio from 'twilio';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken'
 import User from '../../database/User.js';
 
+dotenv.config();
 const router = express.Router();
 
-router.post('/send-verification', async (req, res) => {
-  const { phone } = req.body;
 
-  try {
-    console.log('Sending verification to:', phone);
-    const verification = await sendVerification(phone);
-    console.log('Verification Response:', verification);
-    res.status(200).json({ message: 'Verification sent', verification });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to send verification' });
-  }
+
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const serviceId = process.env.TWILIO_SERVICE_SID;
+const jwtSecret = process.env.JWT_SECRET;
+const client = twilio(accountSid, authToken);
+
+
+
+router.post('/verify/send-verification', (req, res) => {
+  const { phone } = req.body;
+  console.log('phone no',phone)
+  client.verify.v2.services(serviceId)
+    .verifications
+    .create({ to: `+91${phone}`, channel: 'sms' })
+    .then(verification => res.json({ success: true, message: 'OTP sent', verification }))
+    .catch(error => res.status(500).json({ success: false, message: 'Error sending OTP', error }));
 });
 
-router.post('/check-verification', async (req, res) => {
-  const { phone, code, name } = req.body;
-
+router.post('/verify/check-verification', async (req, res) => {
+  const { phone, code } = req.body;
   try {
-    console.log('Checking verification for:', phone, name);
-    const verificationCheck = await checkVerification(phone, code);
-    console.log('Verification Check Response:', verificationCheck);
+    const verificationCheck = await client.verify.v2.services(serviceId)
+      .verificationChecks
+      .create({ to: `+91${phone}`, code });
+  
     if (verificationCheck.status === 'approved') {
-      let user = await User.findOne({ phone });
-      console.log('before', user);
-      if (!user) {
-        user = new User({ phone, name });
-        console.log('after', user);
-        await user.save();
+      const newUser = new User({ phone });
+      await newUser.save();
+  
+      try {
+        const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '1h' });
+        res.json({ success: true, message: 'OTP verified', token });
+      } catch (tokenError) {
+        console.error('Error creating token:', tokenError);
+        res.status(500).json({ success: false, message: 'Error creating token', error: tokenError });
       }
-      const token = jwt.sign(
-        { userid: user._id, phone: user.phone },
-        process.env.JWT_SECRET,
-        { expiresIn: '1d' }
-      );
-      console.log(token)
-      if (!token) {
-        return res.status(404).json({ message: 'Token not found' });
-      }
-
-      res.cookie('jwt', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        path: '/'
-      });
-      // res.cookie('userid', user._id.toString(), {
-      //   httpOnly: true,
-      //   secure: process.env.NODE_ENV === 'production',
-      //   sameSite: 'strict',
-      //   path: '/'
-      // });
-      console.log(user)
-      req.session.user = user;
-      console.log(req.session.user);
-      // res.status(200).json({ message: 'Verification successful' });
-      res.redirect('/register');
     } else {
-      res.status(400).json({ error: 'Invalid code' });
+      res.json({ success: false, message: 'Invalid OTP' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Failed to check verification' });
+    console.error('Error verifying OTP:', error);
+    res.status(500).json({ success: false, message: 'Error verifying OTP', error });
   }
 });
 
-
-// router.post('/update-phone', async (req, res) => {
-//   const { phone,name } = req.body;
-//   console.log(phone,name);
-//   const userId = req.user._id ;
-//   console.log(userId)
-//   try {
-//     console.log('Updating phone number for user:', userId);
-//     await User.findByIdAndUpdate(userId, { phone ,name });
-//     res.status(200).json({ message: 'Phone number updated' });
-//   } catch (error) {
-//     console.error('Error updating phone number:', error);
-//     res.status(500).json({ error: 'Failed to update phone number' });
-//   }
-// });
-
 export default router;
+
+

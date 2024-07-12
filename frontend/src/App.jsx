@@ -10,6 +10,11 @@ import Employment from "./pages/employment/Employment";
 import InterestedGender from "./pages/intrestedGender/InterestedGender";
 import UserProfile from "./pages/userProfile/UserProfile";
 import UserHome from "./pages/userHome/UserHome";
+import ServiceSelection from "./pages/serviceSelection/ServiceSelection";
+import RequestPage from "./pages/RequestPage/RequestPage";
+import ShortListPage from "./pages/ShortListPage/ShortListPage";
+import MessagePage from "./pages/MessagePage/MessagePage";
+import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage";
 
 
 function App() {
@@ -24,11 +29,16 @@ function App() {
         <Route  path="/register" element={<RegisterPage/>} />
         <Route  path="/relationship" element={<LongOrShortTerm/>} />
         <Route  path="/moreabout" element={<MoreAbout/>} />
-        <Route  path="/addphoto" element={<AddPhotos/>} />
-        <Route  path="/userprofile" element={<UserProfile/>} /> 
+        <Route  path="/addphoto" element={<AddPhotos/>} /> 
+        <Route  path="/service" element={<ServiceSelection/>} />
+        <Route  path="/userprofile/:userId" element={<UserProfile/>} /> 
         <Route  path="/employment" element={<Employment/>} /> 
         <Route  path="/gender" element={<InterestedGender/>} />
         <Route  path="/userhome" element={<UserHome/>} />
+        <Route  path="/request" element={<RequestPage/>} />
+        <Route  path="/shortlist" element={<ShortListPage/>} />
+        <Route  path="/messages" element={<MessagePage/>} />
+        <Route  path="/editprofile" element={<ProfileEditPage/>} />
       </Routes>
     </Router>
   );

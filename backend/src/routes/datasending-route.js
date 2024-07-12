@@ -32,6 +32,7 @@ router.post('/api/register', async (req, res) => {
     let user = await User.findOne({ $or: [{ email }, { phone }] });
     if (user) {
         user.name = name;
+        user.email =email;
         user.phone = phone;
         user.password = await bcrypt.hash(password, 10); 
         console.log(`Updated user phone: ${user.phone}`);

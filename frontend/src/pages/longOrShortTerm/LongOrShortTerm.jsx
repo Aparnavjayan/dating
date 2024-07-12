@@ -15,11 +15,11 @@ function LongOrShortTerm() {
   };
 
   useEffect(() => {
-    const cookies = new Cookies()
+    const cookies = new Cookies();
     const userEmail = cookies.get('email');
     const userid = cookies.get('_id');
-    console.log('Stored Email:', userEmail); 
-    console.log('Stored id:', userid); 
+    console.log('Stored Email:', userEmail);
+    console.log('Stored id:', userid);
     setEmail(userEmail);
     setUserid(userid);
   }, []);
@@ -31,8 +31,6 @@ function LongOrShortTerm() {
     }
 
     try {
-      
-
       const response = await axios.post('/api/relationship-type', {
         relationshipType: selectedOption,
       }, {
@@ -56,11 +54,10 @@ function LongOrShortTerm() {
   };
 
   return (
-    <div>
-      <div className={styles.container}>
-        <h2 className={styles.heading}>Choose your option</h2>
-        <div className={styles.options}>
-          <div className={styles.option}>
+    <div className={styles.container}>
+      <h2 className={styles.heading}>Choose your option</h2>
+      <div className={styles.options}>
+        <div className={styles.option}>
           <label>
             <input
               type="radio"
@@ -69,9 +66,10 @@ function LongOrShortTerm() {
               value="longTerm"
               onChange={handleOptionChange}
             />
-            Long term relationship</label>
-          </div>
-          <div className={styles.option}>
+            Long term relationship
+          </label>
+        </div>
+        <div className={styles.option}>
           <label>
             <input
               type="radio"
@@ -80,11 +78,11 @@ function LongOrShortTerm() {
               value="shortTerm"
               onChange={handleOptionChange}
             />
-            Short term relationship</label>
-          </div>
+            Short term relationship
+          </label>
         </div>
-        <button className={styles.button} onClick={nextButton}>Next</button>
       </div>
+      <button className={styles.button} onClick={nextButton}>Next</button>
     </div>
   );
 }

@@ -1,6 +1,14 @@
 import mongoose from 'mongoose';
 
 const PreferencesSchema = new mongoose.Schema({
+  interest: {
+    type: String,
+    required: true,
+  },
+  hobby: {
+    type: String,
+    required: true,
+  },
   smokingHabits: {
     type: String,
     required: true,
@@ -12,10 +20,6 @@ const PreferencesSchema = new mongoose.Schema({
   fitnessInterest: {
     type: String,
     required: true,
-  },
-  genderpreference: {
-    type: String,
-    required: false,
   },
   shortBio: {
     type: String,
@@ -49,7 +53,7 @@ const UserDetailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  hobby: {
+  location: {
     type: String,
     required: true,
   },

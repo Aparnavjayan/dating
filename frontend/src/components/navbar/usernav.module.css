@@ -1,41 +1,134 @@
-
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #d2cdcd;
-    padding: 10px 20px;
-    width: 100%; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d2cdcd;
+  padding: 10px 20px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin-bottom: 50px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  margin-left: 20px;
+  position: relative;
+}
+
+.navLink {
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  margin-right: 40px;
+  padding-left: 20px;
+}
+
+.profileImage {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.logoutButton {
+  padding: 10px 20px;
+  width: 100%;
+  border: none;
+  color: black;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: #f0f0f0;
+}
+
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .logoContainer {
-    display: flex;
-    align-items: center;
+
+  .hamburger {
+    display: block;
   }
-  
-  .logo {
-    height: 40px;
-    width: auto;
-  }
-  
+
   .navLinks {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .showMenu {
     display: flex;
-    list-style: none;
   }
-  
+
   .navItem {
-    margin-left: 20px;
-    color: #9d9797;
-    text-decoration: none;
-    cursor: pointer;
+    margin-left: 0;
+    margin-bottom: 10px;
   }
-  
-  .navItem:hover {
-    text-decoration: underline;
+
+  .profileContainer {
+    margin-left: 0;
+    align-self: flex-end;
   }
-  
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 5px;
+  }
+
+  .navLink {
+    font-size: 14px;
+  }
+
+  .profileImage {
+    height: 30px;
+    width: 30px;
+  }
+}

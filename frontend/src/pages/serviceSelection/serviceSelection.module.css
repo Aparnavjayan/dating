@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 600px;
+    background-color: #f9f9f9;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .serviceFields {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .serviceOption {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .serviceOption input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  .servicenxtButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    /* align-self: flex-start; */
+
+  }
+  
+  .nxtButton:hover {
+    background-color: #0056b3;
+  }
+  

@@ -5,8 +5,8 @@ const router = express.Router();
 
 
 router.get('/api/profiles', authenticateJWT, getProfiles);
-router.post('/api/like', likeProfile);
-router.post('/api/dislike', dislikeProfile);
+router.post('/api/like/:profileId', authenticateJWT, likeProfile);
+router.post('/api/dislike/:profileId', authenticateJWT, dislikeProfile);
 router.get('/api/nextProfile', getNextProfile);
 
 export default router;

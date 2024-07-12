@@ -1,118 +1,122 @@
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-  }
-  
-  .formContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* margin: 20px; */
-  }
-  
-  .cardsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .imageCards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 800px;
-  }
-  
-  .videoCardContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .card {
-    width: 150px;
-    height: 150px;
-    border: 2px dashed #007bff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    cursor: pointer;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #f9f9f9;
-  }
-  
-  .card input {
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
-  
-  .plusSymbol {
-    font-size: 2em;
-    color: #007bff;
-  }
-  
-  .label {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background-color: rgba(0, 123, 255, 0.8);
-    color: white;
-    padding: 2px 5px;
-    border-radius: 5px;
-    font-size: 0.8em;
-  }
-  
-  .imgPreview,
-  .videoPreview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .buttonsContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .previousButton,
-  .submitButton {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 100px;
-  }
-  
-  .previousButton:hover,
-  .submitButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .videoDescription {
-    margin-top: 10px;
-    font-size: 1em;
-    color: #555;
-    text-align: center;
-    max-width: 400px;
-  }
-  
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.imageCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 800px;
+}
+
+.videoCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  border: 2px dashed #007bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.card input {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.plusSymbol {
+  font-size: 2em;
+  color: #007bff;
+}
+
+.label {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: rgba(0, 123, 255, 0.8);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+.imgPreview,
+.videoPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.previousButton,
+.submitButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+}
+
+.previousButton:hover,
+.submitButton:hover {
+  background-color: #0056b3;
+}
+
+.videoDescription {
+  margin-top: 10px;
+  font-size: 1em;
+  color: #555;
+  text-align: center;
+  max-width: 400px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 1em;
+  margin-top: 10px;
+}

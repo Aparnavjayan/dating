@@ -1,0 +1,120 @@
+.messagesPage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  margin-top: 70px; /* Adjusted margin to avoid overlap with UserNavbar */
+}
+
+.userList {
+  width: 80px; /* Reduced width of userList */
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+.user {
+  padding: 10px;
+  cursor: pointer;
+  margin-left: auto;
+  text-align: left; /* Align usernames to the left */
+}
+
+.user:hover {
+  background-color: #f0f0f0;
+}
+
+.chatBox {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.messageList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sentMessage {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+  align-self: flex-end;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.receivedMessage {
+  background-color: #e6e6e6;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+  align-self: flex-start;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.messageInput {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.textArea {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.sendIcon {
+  padding: 10px;
+  margin-left: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sendIcon:hover {
+  background-color: #0056b3;
+}
+
+.noUserSelected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-size: 1.5em;
+  color: #ccc;
+}
+
+.errorMessage {
+  color: red;
+  padding: 10px;
+}

@@ -1,4 +1,4 @@
-
+/* signup.module.css */
 
 body {
   margin: 0;
@@ -7,22 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
- 
- 
-
 }
-/* .pagebackground {
-  margin: 0;
-  padding: 0;
-  background-image: url('../../assets/signupPageBackground.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  filter: brightness(0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
 .wrapper {
   display: flex;
@@ -38,8 +23,6 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-
-
 .container {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
@@ -50,7 +33,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
- 
 }
 
 h2 {
@@ -86,6 +68,11 @@ button {
   color: white;
 }
 
+.login {
+  background-color: #4285f4;
+  color: white;
+}
+
 .orLine {
   width: 100%;
   text-align: center;
@@ -95,7 +82,6 @@ button {
   display: flex;
   align-items: center;
   text-align: center;
-  /* margin: 20px 0; */
 }
 
 .orLine span {
@@ -103,8 +89,6 @@ button {
   padding: 0 10px;
   flex-grow: 1;
   height: 1px;
-  /* background: #ccc; */
-  position: relative;
 }
 
 .orLine span::before {
@@ -112,7 +96,11 @@ button {
   color: black;
   position: absolute;
   background: white;
-  /* padding: 0 10px; */
-  left: 50%;
-  transform: translateX(-50%);
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
 }

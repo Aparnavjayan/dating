@@ -6,18 +6,18 @@ import authenticateJWT from '../middleware/jwtauthentication.js';
 const router = express.Router();
 
 router.post('/api/user-details', authenticateJWT, async (req, res) => {
-  const { dateOfBirth, age, gender, education, occupation, hobby, preferences } = req.body;
+  const { dateOfBirth, age, gender, education, occupation, location, preferences } = req.body;
   
   console.log('Date of Birth:', dateOfBirth);
 console.log('Age:', age);
 console.log('Gender:', gender);
 console.log('Education:', education);
 console.log('Occupation:', occupation);
-console.log('Hobby:', hobby);
+console.log('location:', location);
 console.log('Preferences:', preferences);
 
   const { _id } = req.user ;
-  if (!dateOfBirth || !age || !gender || !education || !occupation || !hobby || !preferences) {
+  if (!dateOfBirth || !age || !gender || !education || !occupation || !location || !preferences) {
     return res.status(400).json({ success: false, message: 'All fields are required' });
   }
 
@@ -33,7 +33,7 @@ console.log('Preferences:', preferences);
       gender,
       education,
       occupation,
-      hobby,
+      location,
       preferences
     });
 

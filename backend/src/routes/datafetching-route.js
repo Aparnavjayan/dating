@@ -41,4 +41,41 @@ router.get('/api/userData', authenticateJWT, async (req, res) => {
   }
 });
 
+router.get('/api/users/:userId', authenticateJWT, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    console.log('user id:', userId);
+    const user = await User.findById(userId);
+    console.log('user found:', user);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.get('/api/userData/:userId', authenticateJWT, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    console.log('user id:', userId);
+    const data = await UserDetails.findOne({ userId });
+    console.log('user data found:', data);
+    if (!data) {
+      return res.status(404).json({ error: "User data not found" });
+    }
+    data.photoUrls = data.photoUrls.map(url => {
+      const filename = url.split('\\').pop().split('/').pop(); 
+      return `/uploads/${filename}`;
+    });
+    console.log('Fetched User Data:', data);
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 export default router;

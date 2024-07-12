@@ -52,10 +52,13 @@ router.post('/upload', authenticateJWT, upload, async (req, res) => {
     let updateData = {};
 
     if (photos.length) {
-      updateData.photoUrls = photos.map(photo => photo.path);
+      updateData.photoUrls = photos.map(photo => {
+        // Convert absolute path to relative path
+        return path.relative(__dirname, photo.path).replace(/\\/g, '/');
+      });
     }
     if (video) {
-      updateData.videoUrl = video;
+      updateData.videoUrl = path.relative(__dirname, video).replace(/\\/g, '/');
     }
 
     const userDetails = await UserDetails.findOneAndUpdate(

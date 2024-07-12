@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import path from 'path'
+import http from 'http';
+import path from 'path';
+import { Server as SocketIoServer } from 'socket.io';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import passport from 'passport';
@@ -18,12 +20,21 @@ import filesRouter from './routes/media-route.js';
 import fetechedData from './routes/datafetching-route.js';
 import userDataRoutes from './routes/user-route.js';
 import loginRoute from './routes/login-route.js';
+import actionRoute from './routes/action-route.js';
+import messageRoute from './routes/message-route.js';
+import Message from '../database/Message.js';
+import requestAndShort from './routes/requestAndShort-route.js';
+import editProfile from './routes/editprofile-route.js';
 
 import './middleware/passport.js'; 
 
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new SocketIoServer(server);
+
+export { io };
 
 
 
@@ -66,10 +77,10 @@ const __dirname = path.dirname(__filename);
 
 
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
   app.use(routes);
-  app.use('/verify', verifyRoutes);
+  app.use(verifyRoutes);
   app.use(datasends);
   app.use(empdata);
   app.use(relationdata);
@@ -78,6 +89,35 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')));
   app.use(fetechedData);
   app.use(userDataRoutes);
   app.use(loginRoute);
+  app.use('/api',actionRoute);
+  app.use('/api', messageRoute);
+  app.use(requestAndShort);
+  app.use('/api',editProfile)
+
+  
+
+  io.on('connection', (socket) => {
+    console.log('New client connected');
+    
+    socket.on('join', (userId) => {
+      socket.join(userId);
+      console.log(`User joined room: ${userId}`);
+    });
+    
+    socket.on('sendMessage', async (messageData) => {
+      const { sender, receiver, content } = messageData;
+      const message = new Message({ sender, receiver, content });
+      await message.save();
+      io.to(receiver).emit('receiveMessage', message);
+      io.to(sender).emit('receiveMessage', message);
+    });
+    
+    socket.on('disconnect', () => {
+      console.log('Client disconnected');
+    });
+  });
+
+
  
   app.get('*', (req, res) => {
   

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './userhome.module.css';
-import { getCookie } from '../../utils/cookies';
+import { useNavigate } from 'react-router-dom';
+import UserNavbar from '../../components/navbar/UserNavbar';
+
 
 const UserHome = () => {
     const [profiles, setProfiles] = useState({
@@ -10,21 +12,18 @@ const UserHome = () => {
         locationProfiles: []
     });
     const [error, setError] = useState('');
-    
 
-    
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchProfiles();
     }, []);
 
-    const fetchProfiles = async (userId) => {
+    const fetchProfiles = async () => {
         try {
-            
             const response = await axios.get('/api/profiles', {
-                withCredentials: true 
-              });
+                withCredentials: true
+            });
             console.log('Response:', response.data);
             setProfiles(response.data);
         } catch (error) {
@@ -33,10 +32,15 @@ const UserHome = () => {
         }
     };
 
+    const handleProfileClick = (userId) => {
+        navigate(`/userprofile/${userId}`);
+    };
+
     const handleLike = async (profileId) => {
         try {
-            await axios.post('/api/like', { userId, profileId });
-            fetchProfiles(userId);
+            console.log('Liking profile with ID:', profileId);
+            await axios.post(`/api/like/${ profileId }`, { withCredentials: true });
+            alert('Profile Liked');
         } catch (error) {
             setError('Error liking profile. Please try again later.');
             console.error('Error liking profile:', error);
@@ -45,8 +49,10 @@ const UserHome = () => {
 
     const handleDislike = async (profileId) => {
         try {
-            await axios.post('/api/dislike', { userId, profileId });
-            fetchProfiles(userId);
+            console.log('Disliking profile with ID:', profileId);
+            await axios.post(`/api/dislike/${profileId}`, { withCredentials: true });
+            fetchProfiles();
+            alert('Profile Disliked'); 
         } catch (error) {
             setError('Error disliking profile. Please try again later.');
             console.error('Error disliking profile:', error);
@@ -58,15 +64,15 @@ const UserHome = () => {
             <h2>{sectionTitle}</h2>
             <div className={styles.profileGrid}>
                 {profiles.map(profile => (
-                    <div key={profile._id} className={styles.profileCard}>
-                        <img src={profile.photo} alt={`${profile.name}'s photo`} />
+                    <div key={profile._id} className={styles.profileCard} onClick={() => handleProfileClick(profile.userId._id)}>
+                        <img src={`/uploads/${profile.photoUrls[0]}`} alt={`${profile.userId.name}'s photo`} />
                         <div className={styles.profileInfo}>
-                            <h3>{profile.name}</h3>
+                            <h3>{profile.userId.name}</h3>
                             <p>{profile.age}</p>
                         </div>
                         <div className={styles.profileActions}>
-                            <button onClick={() => handleLike(profile._id)}>✔️</button>
-                            <button onClick={() => handleDislike(profile._id)}>❌</button>
+                            <button onClick={(e) => { e.stopPropagation(); handleLike(profile.userId._id); }}>✔️</button>
+                            <button onClick={(e) => { e.stopPropagation(); handleDislike(profile.userId._id); }}>❌</button>
                         </div>
                     </div>
                 ))}
@@ -76,6 +82,7 @@ const UserHome = () => {
 
     return (
         <div className={styles.userHome}>
+            <UserNavbar/>
             {error && <div className={styles.error}>{error}</div>}
             {renderProfiles(profiles.qualificationProfiles, 'Profiles with Matching Qualification')}
             {renderProfiles(profiles.occupationProfiles, 'Profiles with Matching Occupation')}

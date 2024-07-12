@@ -1,23 +1,19 @@
 .iconContainer {
-    position: absolute;
-    top: 10px;
-    right: 10px; /* Adjust as needed */
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Space between icons */
-    background-color: #fff; /* Optional: Add a background color */
-    padding: 10px; /* Optional: Add padding */
-    border-radius: 8px; /* Optional: Add border radius */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
-  }
+  display: flex;
+  gap: 10px; 
+  background-color: #fff; 
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
   
   .icon {
     font-size: 20px;
-    color: #555; /* Adjust icon color */
+    color: #555; 
     cursor: pointer;
   }
   
   .icon:hover {
-    color: #000; /* Change color on hover */
+    color: #000; 
   }
   

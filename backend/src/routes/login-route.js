@@ -57,6 +57,11 @@ router.post('/login', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   });
+
+  router.post('/logout', (req, res) => {
+    res.clearCookie('authToken'); // Assuming the auth token is stored in a cookie
+    res.status(200).json({ message: 'Logout successful' });
+  });
   
 
 

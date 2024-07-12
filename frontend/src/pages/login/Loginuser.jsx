@@ -21,7 +21,7 @@ function Loginuser() {
       const response = await axios.post('http://localhost:3000/login', loginData);
       if (response.data.message === 'Login successful') {
         alert('Login successful!');
-        navigate('/userprofile');
+        navigate('/service');
       } else {
         alert('Invalid credentials.');
       }

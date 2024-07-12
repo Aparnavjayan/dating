@@ -1,0 +1,105 @@
+.profileDisplayPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -100px; /* Adjusted to be below the navbar */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 1300px; /* Full width minus margins */
+  /* max-width: 1200px; */
+  height: 60px;
+  /* margin-top: -50px; */
+  background-color: #bae7f1;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  margin: 20px;
+}
+
+.header button {
+  background: none;
+  color: black;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 20px;
+  transition: background-color 0.2s;
+}
+
+.header button:hover,
+.header .active {
+  background-color: #e0e0e0;
+}
+
+.section {
+  width: 100%;
+  max-width: 1200px; /* Limit width for larger screens */
+  margin: 20px;
+}
+
+.profileContainer {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profileContainer:hover {
+  transform: scale(1.05);
+}
+
+.profileContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profileContainer p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.profileImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.profileContainer button {
+  margin-right: 10px;
+  width: 100px;
+}
+
+.profileContainer button:hover {
+  background-color: #f0f0f0;
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .header button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .section {
+    width: 100%;
+    padding: 10px;
+  }
+}

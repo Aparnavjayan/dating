@@ -1,21 +1,10 @@
-/* .registerPageContainer {
-  height: 100vh;
-  background-image: url('../../assets/signupPageBackground.jpg'); 
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-
 .registerPage {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  /* height: 110vh;
-  width:1000px; */
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .registerForm {
@@ -24,9 +13,9 @@
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   width: 800px;
+  max-width: 100%;
+  box-sizing: border-box;
   position: relative;
-  height: 550px;
-  /* max-width: 700px; */
 }
 
 h2 {
@@ -85,8 +74,7 @@ h2 {
 }
 
 .nextBtn {
-  width: 100px;
-  padding: 15px;
+  padding: 15px 30px;
   background: linear-gradient(to right, #6a11cb, #2575fc);
   border: none;
   border-radius: 8px;
@@ -94,11 +82,38 @@ h2 {
   font-size: 18px;
   cursor: pointer;
   transition: background 0.3s;
-  position: absolute;
-  right: 20px;
-  bottom:20px;
+  /* position: relative; */
+  right: 10px;
+  bottom: 10px;
+  width: 150px;
+  margin-top: 20px;
+ margin-left: 500px;
 }
 
 .nextBtn:hover {
   background: linear-gradient(to right, #5a0ea6, #1f63d8);
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .registerForm {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .formGroup input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .nextBtn {
+    padding: 10px;
+    font-size: 16px;
+  }
 }

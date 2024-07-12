@@ -1,0 +1,90 @@
+.messageContainer {
+  width: 350px;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 400px; /* Fixed height */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ccc;
+}
+
+.messageContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.messageList {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sentMessage {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  align-self: flex-end;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.receivedMessage {
+  background-color: #e6e6e6;
+  /* color: #842029; */
+  padding: 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.messageInput {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ccc;
+}
+
+.textArea {
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+  margin-right: 10px;
+}
+
+.sendIcon {
+  color: #007bff;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.closeIcon {
+  color: #f44336;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.errorMessage {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}

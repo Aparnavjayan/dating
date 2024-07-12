@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
    name: String,
     email: {
       type: String,
-      unique: true
+      unique: true,
+      sparse: true 
     },  
     phone: {
       type: String,
@@ -25,6 +26,7 @@ const userSchema = new mongoose.Schema({
         location: String,
         expertiseLevel: String,
         relationshipType: String,
+        userDetails: { type: mongoose.Schema.Types.ObjectId, ref: 'UserDetails' },
           
         
     

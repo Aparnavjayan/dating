@@ -27,6 +27,7 @@
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",
     "react-cookie": "^7.1.4",
+    "socket.io": "^4.7.5",
     "twilio": "^5.2.0",
     "universal-cookie": "^7.1.4"
   },

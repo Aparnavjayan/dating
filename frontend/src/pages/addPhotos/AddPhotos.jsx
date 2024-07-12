@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function AddPhotos() {
   const [photos, setPhotos] = useState(Array(6).fill(null));
   const [video, setVideo] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handlePhotoChange = (index, event) => {
@@ -18,12 +19,19 @@ function AddPhotos() {
     setVideo(event.target.files[0]);
   };
 
-  const submitprevious = () => {
+  const submitPrevious = () => {
     navigate("/moreabout");
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Check if at least one photo is added
+    const hasPhoto = photos.some(photo => photo !== null);
+    if (!hasPhoto) {
+      setErrorMessage('Please add at least one photo.');
+      return;
+    }
 
     const formData = new FormData();
 
@@ -97,11 +105,16 @@ function AddPhotos() {
             )}
           </div>
           <div className={styles.videoDescription}>
-            Add more about your experience as a short video.
+            Add more about you as a short video.
           </div>
         </div>
+        {errorMessage && (
+          <div className={styles.errorMessage}>
+            {errorMessage}
+          </div>
+        )}
         <div className={styles.buttonsContainer}>
-          <button type="button" className={styles.previousButton} onClick={submitprevious}>
+          <button type="button" className={styles.previousButton} onClick={submitPrevious}>
             Previous
           </button>
           <button type="submit" className={styles.submitButton}>

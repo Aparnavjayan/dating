@@ -23,8 +23,6 @@ const Employment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
-      email,
-      phone,
       userType,
       companyName,
       designation,
