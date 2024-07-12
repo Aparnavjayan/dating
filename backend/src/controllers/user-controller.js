@@ -6,21 +6,12 @@ import ShortList from '../../database/ShortList.js';
 export const getProfiles = async (req, res) => {
     try {
         const userId = req.user._id;
-        console.log('Logged-in user ID:', userId);
 
         if (!userId) {
             return res.status(400).json({ error: 'User ID is required' });
         }
 
-        const loggedInUser = await User.findOne({ _id: userId });
-        console.log('Logged-in user:', loggedInUser);
-
-        if (!loggedInUser) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
         const loggedInUserDetails = await UserDetails.findOne({ userId });
-        console.log('Logged-in user details:', loggedInUserDetails);
 
         if (!loggedInUserDetails) {
             return res.status(404).json({ error: 'User details not found' });
@@ -28,42 +19,42 @@ export const getProfiles = async (req, res) => {
 
         const hiddenProfileDoc = await HiddenProfile.findOne({ userId });
         const hiddenProfiles = hiddenProfileDoc ? hiddenProfileDoc.hiddenProfilesIds : [];
-        console.log('Hidden profiles:', hiddenProfiles);
 
         const query = {
-            userId: { $ne: userId, $nin: hiddenProfiles }
+            userId: { $ne: userId, $nin: hiddenProfiles },
+            gender: { $ne: loggedInUserDetails.selectedGender }  // Filter by selected gender
         };
 
-        const qualificationProfiles = await UserDetails.find({
-            education: loggedInUserDetails.education,
-            ...query
-        }).populate('userId').exec();
+        const fetchRandomProfiles = async (matchCriteria) => {
+            return await UserDetails.aggregate([
+                { $match: { ...matchCriteria, ...query } },
+                { $sample: { size: 10 } }  // Fetch random 10 profiles
+            ]);
+        };
 
-        const occupationProfiles = await UserDetails.find({
-            occupation: loggedInUserDetails.occupation,
-            ...query
-        }).populate('userId').exec();
+        const qualificationProfiles = await fetchRandomProfiles({ education: loggedInUserDetails.education });
+        const occupationProfiles = await fetchRandomProfiles({ occupation: loggedInUserDetails.occupation });
+        const locationProfiles = await fetchRandomProfiles({ location: loggedInUserDetails.location });
 
-        const locationProfiles = await UserDetails.find({
-            location: loggedInUserDetails.location,
-            ...query
-        }).populate('userId').exec();
+        // Function to populate user details
+        const populateUserDetails = async (profiles) => {
+            return await UserDetails.populate(profiles, { path: 'userId', select: 'name' });
+        };
 
-        console.log('Qualification profiles:', qualificationProfiles);
-        console.log('Occupation profiles:', occupationProfiles);
-        console.log('Location profiles:', locationProfiles);
+        const populatedQualificationProfiles = await populateUserDetails(qualificationProfiles);
+        const populatedOccupationProfiles = await populateUserDetails(occupationProfiles);
+        const populatedLocationProfiles = await populateUserDetails(locationProfiles);
 
         res.json({
-            qualificationProfiles,
-            occupationProfiles,
-            locationProfiles
+            qualificationProfiles: populatedQualificationProfiles,
+            occupationProfiles: populatedOccupationProfiles,
+            locationProfiles: populatedLocationProfiles
         });
     } catch (error) {
         console.error('Error fetching profiles:', error);
         res.status(500).json({ error: 'Error fetching profiles' });
     }
 };
-
 
 
 export const likeProfile = async (req, res) => {
@@ -73,14 +64,14 @@ export const likeProfile = async (req, res) => {
         const { profileId } = req.params;
         console.log('otheruser', profileId)
 
-        // Add profile to the user's shortlist
+        
         await ShortList.findOneAndUpdate(
             { userId },
             { $addToSet: { shortListedIds: profileId } },
             { upsert: true, new: true }
         );
 
-        // Remove profile from hidden profiles if present
+        
         await HiddenProfile.findOneAndUpdate(
             { userId },
             { $pull: { hiddenProfilesIds: profileId } }
@@ -100,14 +91,14 @@ export const dislikeProfile = async (req, res) => {
         const { profileId } = req.params;
         console.log('otheruser', profileId)
 
-        // Add profile to the user's hidden profiles
+       
         await HiddenProfile.findOneAndUpdate(
             { userId },
             { $addToSet: { hiddenProfilesIds: profileId } },
             { upsert: true, new: true }
         );
 
-        // Remove profile from shortlisted profiles if present
+       
         await ShortList.findOneAndUpdate(
             { userId },
             { $pull: { shortListedIds: profileId } }
