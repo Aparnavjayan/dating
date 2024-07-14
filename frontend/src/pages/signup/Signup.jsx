@@ -10,7 +10,6 @@ function Signup() {
   const [otpSent, setOtpSent] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [errors, setErrors] = useState({});
-
   const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
@@ -43,6 +42,7 @@ function Signup() {
     try {
       const response = await axios.post('http://localhost:3000/verify/check-verification', { phone, code: otp });
       if (response.data.success) {
+        localStorage.setItem('token', response.data.token);
         setIsVerified(true);
         alert('OTP verified successfully!');
         navigate('/register');

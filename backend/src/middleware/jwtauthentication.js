@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const authenticateJWT = async (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.jwt 
+  console.log(token)
 
   if (!token) {
     return res.status(401).json({ message: 'token not found' });
