@@ -32,7 +32,7 @@ const ShortListPage = () => {
   const renderProfile = (profile) => (
     <div className={styles.profileContainer} key={profile._id} onClick={() => handleProfileClick(profile._id)}>
       <div className={styles.profileContent}>
-      <img src={profile.photoUrls} alt={profile.name} className={styles.profileImage} />
+      <img src={profile.photoUrls[0]} alt={profile.name} className={styles.profileImage} />
         <p>{profile.name}</p>
       </div>
     </div>
