@@ -15,20 +15,18 @@ function Boarding() {
   };
 
   return (
-    
-      <div className={styles.pageContainer}>
-        <button className={styles.loginButton} onClick={submitLoginButton}>
-          <img src={loginIcon} alt="Login Icon" className={styles.icon} /> Sign in
-        </button>
-        <div className={styles.textOverImage}>
-          <h1>Welcome to HeartMatch!</h1>
-          <p>Connecting Hearts, Building Communities</p>
-        </div>
-        <button className={styles.exploreButton} onClick={submitExploreButton}>
-          Explore Now
-        </button>
+    <div className={styles.pageContainer}>
+      <button className={styles.loginButton} onClick={submitLoginButton}>
+        <img src={loginIcon} alt="Login Icon" className={styles.icon} /> Sign in
+      </button>
+      <div className={styles.textOverImage}>
+        <h1>Welcome to HeartMatch!</h1>
+        <p>Connecting Hearts, Building Communities</p>
       </div>
-  
+      <button className={styles.exploreButton} onClick={submitExploreButton}>
+        Explore Now
+      </button>
+    </div>
   );
 }
 

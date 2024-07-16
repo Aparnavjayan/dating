@@ -81,13 +81,16 @@ const UserHome = () => {
     );
 
     return (
+        <>
+        <UserNavbar/>
         <div className={styles.userHome}>
-            <UserNavbar/>
+            
             {error && <div className={styles.error}>{error}</div>}
             {renderProfiles(profiles.qualificationProfiles, 'Profiles with Matching Qualification')}
             {renderProfiles(profiles.occupationProfiles, 'Profiles with Matching Occupation')}
             {renderProfiles(profiles.locationProfiles, 'Profiles Nearby')}
         </div>
+        </>
     );
 };
 

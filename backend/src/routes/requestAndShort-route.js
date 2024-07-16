@@ -64,7 +64,7 @@ router.get('/shortlisted-by', authenticateJWT, async (req, res) => {
   }
 });
 
-
+//Get request sent profiles
 router.get('/requests-sent', authenticateJWT, async (req, res) => {
   try {
     const request = await Request.findOne({ userId: req.user._id }).select('requestSentIds');

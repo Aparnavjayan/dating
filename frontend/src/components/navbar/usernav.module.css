@@ -9,8 +9,9 @@
   position: fixed;
   top: 0;
   left: 0;
+  height: 60px;
   z-index: 1;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 
 .logoContainer {
