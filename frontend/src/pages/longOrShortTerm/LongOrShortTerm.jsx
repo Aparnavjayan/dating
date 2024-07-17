@@ -54,7 +54,7 @@ function LongOrShortTerm() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.relationcontainer}>
       <h2 className={styles.heading}>Choose your option</h2>
       <div className={styles.options}>
         <div className={styles.option}>
@@ -82,7 +82,7 @@ function LongOrShortTerm() {
           </label>
         </div>
       </div>
-      <button className={styles.button} onClick={nextButton}>Next</button>
+      <button className={styles.nextbutton} onClick={nextButton}>Next</button>
     </div>
   );
 }

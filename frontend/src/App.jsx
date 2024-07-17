@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Loginuser from "./pages/login/Loginuser";
 import Boarding from "./pages/BoardingScreen/Boarding";
 import Signup from "./pages/signup/Signup";
@@ -15,6 +16,7 @@ import RequestPage from "./pages/RequestPage/RequestPage";
 import ShortListPage from "./pages/ShortListPage/ShortListPage";
 import MessagePage from "./pages/MessagePage/MessagePage";
 import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage";
+import EcomUserHome from "./e-commerce/pages/userHome/EcomUserHome";
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
         <Route  path="/shortlist" element={<ShortListPage/>} />
         <Route  path="/messages" element={<MessagePage/>} />
         <Route  path="/editprofile" element={<ProfileEditPage/>} />
+        <Route  path="/ecomhome" element={<EcomUserHome/>} />
       </Routes>
     </Router>
   );

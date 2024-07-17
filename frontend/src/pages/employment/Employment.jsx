@@ -122,7 +122,7 @@ const Employment = () => {
         </div>
       )}
 
-      <button onClick={handleSubmit} className={styles.nxtButton}>Next</button>
+      <button onClick={handleSubmit} className={styles.empnxtButton}>Next</button>
     </div>
   );
 };

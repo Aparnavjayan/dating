@@ -33,7 +33,7 @@ function Loginuser() {
 
   return (
     <div>
-      <div className={styles.container}>
+      <div className={styles.logincontainer}>
         <h2>Login</h2>
         <form>
           <div className={styles.methodSelector}>

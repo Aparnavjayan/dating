@@ -50,7 +50,7 @@ const UserNavbar = () => {
   };
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.datingnavbar}>
       <div className={styles.logoContainer}>
         <img src="" alt="Website Logo" className={styles.logo} />
       </div>

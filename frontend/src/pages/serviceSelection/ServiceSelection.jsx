@@ -18,14 +18,14 @@ function ServiceSelection() {
     } else if (selectedService === 'jobportal') {
       navigate('/jobportal')
     } else if (selectedService === 'ecommerce') {
-      navigate('/ecommerce')
+      window.location.href = 'http://localhost:3001';
     } else {
       navigate('/studyabroad')
     }
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.servicecontainer}>
       <h1>Select a Service</h1>
       <div className={styles.serviceFields}>
         <div className={styles.serviceOption}>

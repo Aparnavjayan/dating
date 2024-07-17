@@ -72,7 +72,7 @@ function Signup() {
     <div>
       <div className={styles.wrapper}>
         <h1 className={styles.heading}>Register for free</h1>
-        <div className={styles.container}>
+        <div className={styles.signupcontainer}>
           <h2>Create account</h2>
           <form>
             <input

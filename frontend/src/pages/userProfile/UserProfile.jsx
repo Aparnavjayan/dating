@@ -58,7 +58,7 @@ function UserProfile() {
   return (
     <div>
       <UserNavbar />
-      <div className={styles.container}>
+      <div className={styles.profilecontainer}>
         <div className={styles.profileContent}>
           <div className={styles.imageCard}>
             <button className={styles.prevButton} onClick={prevImage}>❮</button>

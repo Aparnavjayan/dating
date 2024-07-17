@@ -116,7 +116,7 @@ function MoreAbout() {
     <div className={styles.about}>
       <h1>More about you</h1>
       <form onSubmit={handleSubmit}>
-        <div className={styles.container}>
+        <div className={styles.morecontainer}>
           <div className={styles.basicDetails}>
             <label>
               Date of Birth:
@@ -275,7 +275,7 @@ function MoreAbout() {
             </label>
           </div>
         </div>
-        <button type="submit" className={styles.nextbutton}>
+        <button type="submit" className={styles.morenextbutton}>
           Next
         </button>
       </form>

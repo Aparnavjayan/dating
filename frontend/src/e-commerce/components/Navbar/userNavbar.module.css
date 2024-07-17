@@ -1,0 +1,52 @@
+.ecomnavbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.brand img {
+  height: 30px;
+}
+
+.searchForm {
+  /* flex-grow: 1; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.searchInput {
+  height: 30px; 
+  width: 200px; 
+  padding: 5px 10px; 
+  font-size: 14px; 
+   
+}
+
+.searchButton {
+  height: 30px;
+  padding: 5px 10px; 
+  font-size: 14px;
+  
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+}
+
+.avatar {
+  height: 30px;
+}
+
+.ecomnav {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

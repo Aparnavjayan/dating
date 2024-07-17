@@ -1,17 +1,23 @@
-/* Ensure the html and body elements take up the full height */
- body {
+
+/* .boardingContainer {
   height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-}
+} */
+
 
 .pageContainer {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  
   position: relative;
   width: 100vw;
-  height: 100vh; /* Ensure it takes the full viewport height */
+  height: 100vh; 
   background-image: url('../../assets/boardingPagebackground.jpg');
-  background-size: cover; /* Cover the entire container */
+  background-size: cover; 
   background-repeat: no-repeat;
   background-position: center;
   display: flex;
@@ -70,7 +76,6 @@ h1 {
   width: 24px;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .textOverImage {
     padding: 15px;
