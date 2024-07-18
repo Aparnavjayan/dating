@@ -18,7 +18,7 @@ function ServiceSelection() {
     } else if (selectedService === 'jobportal') {
       navigate('/jobportal')
     } else if (selectedService === 'ecommerce') {
-      window.location.href = 'http://localhost:3001';
+      navigate('/ecomhome')
     } else {
       navigate('/studyabroad')
     }

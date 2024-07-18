@@ -1,0 +1,22 @@
+
+.carouselContainer {
+  margin-bottom: 20px;
+}
+
+.featuredProductsContainer {
+  padding: 20px;
+}
+
+.categorySection {
+  margin-bottom: 40px;
+}
+
+.productRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.productCard {
+  width: calc(16.66% - 20px);
+}
